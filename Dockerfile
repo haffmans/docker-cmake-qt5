@@ -38,7 +38,15 @@ RUN apt-get install -y \
         python3-pyqt5-dbg \
         qt5-default \
         qt5-qmake \
-        qt5-image-formats-plugins
+        qt5-image-formats-plugins \
+        qtdeclarative5-controls-plugin \
+        qtdeclarative5-dbg \
+        qtdeclarative5-dev \
+        qtdeclarative5-dev-tools
+        qtdeclarative5-dialogs-plugin \
+        qtdeclarative5-models-plugin \
+        qtdeclarative5-qtquick2-plugin \
+        qtdeclarative5-window-plugin \
 
 RUN apt-get install -y \
         libncursesw5 \
