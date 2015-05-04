@@ -42,7 +42,7 @@ RUN apt-get install -y \
         qtdeclarative5-controls-plugin \
         qtdeclarative5-dbg \
         qtdeclarative5-dev \
-        qtdeclarative5-dev-tools
+        qtdeclarative5-dev-tools \
         qtdeclarative5-dialogs-plugin \
         qtdeclarative5-models-plugin \
         qtdeclarative5-qtquick2-plugin \
