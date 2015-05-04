@@ -46,7 +46,7 @@ RUN apt-get install -y \
         qtdeclarative5-dialogs-plugin \
         qtdeclarative5-models-plugin \
         qtdeclarative5-qtquick2-plugin \
-        qtdeclarative5-window-plugin \
+        qtdeclarative5-window-plugin
 
 RUN apt-get install -y \
         libncurses5 \
