@@ -46,3 +46,5 @@ RUN apt-get install -y \
         libncursesw5-dev \
         libreadline6 \
         libreadline6-dev
+
+VOLUME /deploy
