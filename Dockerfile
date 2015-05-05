@@ -46,7 +46,9 @@ RUN apt-get install -y \
         qtdeclarative5-dialogs-plugin \
         qtdeclarative5-models-plugin \
         qtdeclarative5-qtquick2-plugin \
-        qtdeclarative5-window-plugin
+        qtdeclarative5-window-plugin \
+        qttools5-dev-tools \
+        qttools5-dev
 
 RUN apt-get install -y \
         libncurses5 \
@@ -56,6 +58,9 @@ RUN apt-get install -y \
         libncursesw5-dbg \
         libncursesw5-dev \
         libreadline6 \
-        libreadline6-dev
+        libreadline6-dev \
+        libmagick++5 \
+        libmagick++-dev \
+        imagemagick
 
 VOLUME /deploy
