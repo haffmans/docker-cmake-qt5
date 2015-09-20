@@ -40,4 +40,4 @@ Build tag on Docker Hub:
 Trigger cmake-qt5-qommando master build:
   type: deploy
   script:
-  - "curl -X POST -F token=${QOMMANDO_IMAGE_TOKEN} https://localhost/api/v1/projects/4/refs/master/trigger"
+  - "curl -k -X POST -F token=${QOMMANDO_IMAGE_TOKEN} https://ci.simply-life.net/api/v1/projects/4/refs/master/trigger"
