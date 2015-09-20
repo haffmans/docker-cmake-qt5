@@ -1,0 +1,43 @@
+stages:
+  - build
+  - deploy
+
+Build master:
+  stage: build
+  script:
+  - docker rmi --force ${DOCKERHUB_USER}/${DOCKERHUB_REPO}:latest || /bin/true
+  - docker build --tag=${DOCKERHUB_USER}/${DOCKERHUB_REPO}:latest .
+  tags:
+  - docker
+  only:
+  - master
+
+Build other:
+  stage: build
+  script:
+  - docker build --tag=${DOCKERHUB_USER}/${DOCKERHUB_REPO}:${CI_BUILD_REF_NAME} .
+  tags:
+  - docker
+  except:
+  - master
+
+# Note: to be friendly to Docker Hub, the auto-update on push is disabled in Docker hub.
+# The repository itself is mirrored to GitHub immediately on every push.
+Build branch on Docker Hub:
+  stage: deploy
+  script:
+  - 'curl -H "Content-Type: application/json" --data "{\"source_type\": \"Branch\", \"source_name\": \"${CI_BUILD_REF_NAME}\"}" -X POST https://registry.hub.docker.com/u/${DOCKERHUB_USER}/${DOCKERHUB_REPO}/trigger/${DOCKERHUB_TOKEN}/'
+  except:
+  - tags
+
+Build tag on Docker Hub:
+  stage: deploy
+  script:
+  - 'curl -H "Content-Type: application/json" --data "{\"source_type\": \"Tag\", \"source_name\": \"${CI_BUILD_REF_NAME}\"}" -X POST https://registry.hub.docker.com/u/${DOCKERHUB_USER}/${DOCKERHUB_REPO}/trigger/${DOCKERHUB_TOKEN}/'
+  except:
+  - branches
+
+Trigger cmake-qt5-qommando master build:
+  type: deploy
+  script:
+  - "curl -X POST -F token=${QOMMANDO_IMAGE_TOKEN} https://localhost/api/v1/projects/4/refs/master/trigger"
