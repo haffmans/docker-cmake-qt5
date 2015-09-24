@@ -4,14 +4,14 @@ MAINTAINER  Wouter Haffmans <wouter@simply-life.net>
 RUN apt-get update \
     && apt-get install -y \
         software-properties-common \
-        wget
+        wget \
+        curl
 
 RUN add-apt-repository -y ppa:packetlost/cmake \
     && apt-key update \
     && apt-get update && apt-get install -y \
         build-essential \
-        git \
-        wget
+        git
 
 RUN apt-get install -y \
         cmake \
