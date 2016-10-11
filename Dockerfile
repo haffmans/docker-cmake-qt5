@@ -7,7 +7,7 @@ RUN apt-get update \
         wget \
         curl
 
-RUN add-apt-repository -y ppa:packetlost/cmake \
+RUN add-apt-repository -y ppa:george-edison55/cmake-3.x \
     && apt-key update \
     && apt-get update && apt-get install -y \
         build-essential \
