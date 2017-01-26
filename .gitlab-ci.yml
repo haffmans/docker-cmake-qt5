@@ -5,9 +5,11 @@ stages:
 
 Mirror to github:
   stage: mirror
+
   script:
   - mkdir -p $HOME/.ssh
   - echo "${GITHUB_DEPLOY_KEY}" > $HOME/.ssh/github
+  - chmod 0600 $HOME/.ssh/github
   - mv $HOME/.ssh/config $HOME/.ssh/config~ || /bin/true
   - echo "host github.com" > $HOME/.ssh/config
   - echo "  IdentityFile %d/.ssh/github" >> $HOME/.ssh/config
@@ -17,6 +19,7 @@ Mirror to github:
   - git fetch github
   - git push --mirror github
 
+  after_script:
   - mv $HOME/.ssh/config~ $HOME/.ssh/config || /bin/true
   - rm $HOME/.ssh/github
 
