@@ -1,6 +1,23 @@
 stages:
+  - mirror
   - build
   - deploy
+
+Mirror to github:
+  stage: mirror
+  script:
+  - mkdir -p $HOME/.ssh
+  - echo "${GITHUB_DEPLOY_KEY}" > $HOME/.ssh/github
+  - mv $HOME/.ssh/config $HOME/.ssh/config~ || /bin/true
+  - echo "host github.com" > $HOME/.ssh/config
+  - echo "  IdentityFile %d/.ssh/id_rsa.github" >> $HOME/.ssh/config
+  - echo "  PubKeyAuthentication yes" >> $HOME/.ssh/config
+
+  - git remote add github git@github.com:${GITHUB_REPOSITORY} || /bin/true
+  - git push --mirror github
+
+  - mv $HOME/.ssh/config~ $HOME/.ssh/config || /bin/true
+  - rm $HOME/.ssh/github
 
 Build master:
   stage: build
