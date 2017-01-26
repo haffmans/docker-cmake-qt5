@@ -14,6 +14,7 @@ Mirror to github:
   - echo "  PubKeyAuthentication yes" >> $HOME/.ssh/config
 
   - git remote add github git@github.com:${GITHUB_REPOSITORY} || /bin/true
+  - git fetch github
   - git push --mirror github
 
   - mv $HOME/.ssh/config~ $HOME/.ssh/config || /bin/true
