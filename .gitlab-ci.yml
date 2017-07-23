@@ -35,6 +35,7 @@ Build other:
 # The repository itself is mirrored to GitHub immediately on every push.
 Build branch on Docker Hub:
   stage: deploy
+  image: governmentpaas/curl-ssl
   script:
   - 'curl -H "Content-Type: application/json" --data "{\"source_type\": \"Branch\", \"source_name\": \"${CI_COMMIT_REF_NAME}\"}" -X POST https://registry.hub.docker.com/u/${DOCKERHUB_USER}/${DOCKERHUB_REPO}/trigger/${DOCKERHUB_TOKEN}/'
   except:
@@ -42,6 +43,7 @@ Build branch on Docker Hub:
 
 Build tag on Docker Hub:
   stage: deploy
+  image: governmentpaas/curl-ssl
   script:
   - 'curl -H "Content-Type: application/json" --data "{\"source_type\": \"Tag\", \"source_name\": \"${CI_COMMIT_REF_NAME}\"}" -X POST https://registry.hub.docker.com/u/${DOCKERHUB_USER}/${DOCKERHUB_REPO}/trigger/${DOCKERHUB_TOKEN}/'
   except:
@@ -49,5 +51,6 @@ Build tag on Docker Hub:
 
 Trigger cmake-qt5-qommando master build:
   type: deploy
+  image: governmentpaas/curl-ssl
   script:
   - "curl -X POST -F token=${QOMMANDO_IMAGE_TOKEN} -F ref=master https://git.simply-life.net/api/v3/projects/70/trigger/builds"
