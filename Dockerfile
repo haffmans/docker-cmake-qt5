@@ -1,4 +1,4 @@
-FROM        ubuntu:14.04
+FROM        ubuntu:16.04
 MAINTAINER  Wouter Haffmans <wouter@simply-life.net>
 
 RUN apt-get update \
@@ -59,7 +59,7 @@ RUN apt-get install -y \
         libncursesw5-dev \
         libreadline6 \
         libreadline6-dev \
-        libmagick++5 \
+        libmagick++6 \
         libmagick++-dev \
         imagemagick
 
