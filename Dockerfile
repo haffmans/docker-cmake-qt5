@@ -31,6 +31,7 @@ RUN apt-get install -y \
         libqt5script5 \
         libqt5scripttools5 \
         libqt5svg5 \
+        libqt5svg5-dev \
         libqt5widgets5 \
         libqt5xml5 \
         pyqt5-dev \
