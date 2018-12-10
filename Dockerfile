@@ -69,6 +69,15 @@ RUN apt-get install -y \
         qtdeclarative5-models-plugin \
         qtdeclarative5-qtquick2-plugin \
         qtdeclarative5-window-plugin \
+        qtlocation5-dev \
+        qtmultimedia5-dev \
+        qtquickcontrols2-5-dev \
+        qtscript5-dev \
+        qtwebengine5-dev \
+        qtwebengine5-dev-tools \
+        qttools5-dev-tools \
+        qttools5-dev \
+        qtxmlpatterns5-dev-tools \
         qml-module-qt-labs-calendar \
         qml-module-qt-labs-folderlistmodel \
         qml-module-qt-labs-platform \
@@ -96,9 +105,7 @@ RUN apt-get install -y \
         qml-module-qttest \
         qml-module-qtwebengine \
         qml-module-qtwebsockets \
-        qml-module-qtwebview \
-        qttools5-dev-tools \
-        qttools5-dev
+        qml-module-qtwebview
 
 RUN apt-get install -y \
         libncurses5 \
