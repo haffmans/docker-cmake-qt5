@@ -5,14 +5,19 @@ RUN apt-get update \
     && apt-get install -y \
         software-properties-common \
         wget \
-        curl
+        curl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update \
+RUN    apt-get update \
     && apt-get install -y \
         build-essential \
-        git
+        git \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get install -y \
+RUN    apt-get update \
+    && apt-get install -y \
         cmake \
         libqt5charts5 \
         libqt5charts5-dev \
@@ -105,9 +110,12 @@ RUN apt-get install -y \
         qml-module-qttest \
         qml-module-qtwebengine \
         qml-module-qtwebsockets \
-        qml-module-qtwebview
+        qml-module-qtwebview \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get install -y \
+RUN    apt-get update \
+    && apt-get install -y \
         libncurses5 \
         libncurses5-dbg \
         libncurses5-dev \
@@ -119,7 +127,9 @@ RUN apt-get install -y \
         libreadline-dev \
         libmagick++6 \
         libmagick++-dev \
-        imagemagick
+        imagemagick \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Create devel user...
 RUN useradd -m -d /home/devel -u 1000 -U -G users,tty -s /bin/bash devel
