@@ -6,15 +6,18 @@ RUN apt-get update \
         software-properties-common \
         wget \
         curl \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN    apt-get update \
-    && apt-get install -y \
+        gpg \
         build-essential \
         git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+# Get latest version of CMake from Kitware - see https://apt.kitware.com/
+# NB: This doesn't install the kitware-archive-keyring but only uses the latest version from the web.
+#     If the keys rotate, this step must be re-executed when building an image.
+RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | \
+        gpg --dearmor - > /usr/share/keyrings/kitware-archive-keyring.gpg && \
+    echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ bionic main' > /etc/apt/sources.list.d/kitware.list
 
 RUN    apt-get update \
     && apt-get install -y \
