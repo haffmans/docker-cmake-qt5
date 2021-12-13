@@ -3,6 +3,15 @@ stages:
   - build
   - deploy
 
+.dockertag: &dockertag
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      variables:
+        DOCKERTAG: "latest"
+    - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
+      variables:
+        DOCKERTAG: "${CI_COMMIT_REF_NAME}-"
+
 Mirror to github:
   stage: mirror
 
@@ -12,42 +21,22 @@ Mirror to github:
   tags:
   - gitmirror
 
-Build master:
+Build:
+  <<: *dockertag
   stage: build
   script:
-  - docker rmi --force ${DOCKERHUB_USER}/${DOCKERHUB_REPO}:latest || /bin/true
-  - docker build --no-cache --tag=${DOCKERHUB_USER}/${DOCKERHUB_REPO}:latest .
+  - docker build --no-cache --tag=${DOCKERHUB_USER}/${DOCKERHUB_REPO}:${DOCKERTAG} .
   tags:
   - docker
-  only:
-  - master
 
-Build other:
-  stage: build
+Push to Hub:
+  <<: *dockertag
+  stage: deploy
   script:
-  - docker build --no-cache --tag=${DOCKERHUB_USER}/${DOCKERHUB_REPO}:${CI_COMMIT_REF_NAME} .
+  - docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_TOKEN}
+  - docker push ${DOCKERHUB_USER}/${DOCKERHUB_REPO}:${DOCKERTAG}
   tags:
   - docker
-  except:
-  - master
-
-# Note: to be friendly to Docker Hub, the auto-update on push is disabled in Docker hub.
-# The repository itself is mirrored to GitHub immediately on every push.
-Build branch on Docker Hub:
-  stage: deploy
-  image: governmentpaas/curl-ssl
-  script:
-  - 'curl -H "Content-Type: application/json" --data "{\"source_type\": \"Branch\", \"source_name\": \"${CI_COMMIT_REF_NAME}\"}" -X POST https://registry.hub.docker.com/u/${DOCKERHUB_USER}/${DOCKERHUB_REPO}/trigger/${DOCKERHUB_TOKEN}/'
-  except:
-  - tags
-
-Build tag on Docker Hub:
-  stage: deploy
-  image: governmentpaas/curl-ssl
-  script:
-  - 'curl -H "Content-Type: application/json" --data "{\"source_type\": \"Tag\", \"source_name\": \"${CI_COMMIT_REF_NAME}\"}" -X POST https://registry.hub.docker.com/u/${DOCKERHUB_USER}/${DOCKERHUB_REPO}/trigger/${DOCKERHUB_TOKEN}/'
-  except:
-  - branches
 
 Trigger cmake-qt5-qommando master build:
   type: deploy
