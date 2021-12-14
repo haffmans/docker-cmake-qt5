@@ -38,6 +38,6 @@ Push to Hub:
 
 Trigger cmake-qt5-qommando master build:
   type: deploy
-  image: governmentpaas/curl-ssl
+  image: governmentpaas/curl-ssl:latest
   script:
-  - "curl -X POST -F token=${QOMMANDO_IMAGE_TOKEN} -F ref=master https://git.simply-life.net/api/v3/projects/70/trigger/builds"
+  - "curl -X POST -F token=${QOMMANDO_IMAGE_TOKEN} -F ref=master https://git.simply-life.net/api/v4/projects/70/trigger/pipeline"
