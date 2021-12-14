@@ -10,7 +10,7 @@ stages:
         DOCKERTAG: "latest"
     - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
       variables:
-        DOCKERTAG: "${CI_COMMIT_REF_NAME}-"
+        DOCKERTAG: "${CI_COMMIT_REF_NAME}"
 
 Mirror to github:
   stage: mirror
