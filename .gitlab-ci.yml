@@ -23,7 +23,7 @@ Build:
   <<: *dockertag
   stage: build
   script:
-  - docker build --no-cache --tag=${DOCKERHUB_USER}/${DOCKERHUB_REPO}:${DOCKERTAG} .
+  - docker build --tag=${DOCKERHUB_USER}/${DOCKERHUB_REPO}:${DOCKERTAG} .
   tags:
   - docker
 
