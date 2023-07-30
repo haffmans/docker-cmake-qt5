@@ -50,7 +50,7 @@ Build tag on Docker Hub:
   - branches
 
 Trigger cmake-qt5-qommando master build:
-  type: deploy
+  stage: deploy
   image: governmentpaas/curl-ssl
   script:
   - "curl -X POST -F token=${QOMMANDO_IMAGE_TOKEN} -F ref=master https://git.simply-life.net/api/v3/projects/70/trigger/builds"
